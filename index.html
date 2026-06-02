@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aprende y visualiza el funcionamiento paso a paso de los Heaps Avanzados (Binomial, Fibonacci, Izquierdista, Oblicuo, Emparejamiento).">
+    <title>Heaps Avanzados: Guía y Simulador Interactivo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo" id="logo-main">
+                <div class="logo-icon">H</div>
+                Heaps Avanzados
+            </a>
+            <nav class="nav-tabs" id="nav-tabs" role="tablist">
+                <button class="tab-btn active" id="tab-btn-home" data-tab="home" role="tab" aria-selected="true" aria-controls="panel-home">
+                    Inicio
+                </button>
+                <button class="tab-btn" id="tab-btn-theory" data-tab="theory" role="tab" aria-selected="false" aria-controls="panel-theory">
+                    Conceptos
+                </button>
+                <button class="tab-btn" id="tab-btn-simulator" data-tab="simulator" role="tab" aria-selected="false" aria-controls="panel-simulator">
+                    Simulador Paso a Paso
+                </button>
+                <button class="tab-btn" id="tab-btn-compare" data-tab="compare" role="tab" aria-selected="false" aria-controls="panel-compare">
+                    Complejidades
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- PANEL: INICIO -->
+        <section id="panel-home" class="tab-panel active" role="tabpanel" aria-labelledby="tab-btn-home">
+            <div class="hero">
+                <h1>Optimiza tus Colas de Prioridad con <br><span style="color: var(--color-secondary);">Heaps Avanzados</span></h1>
+                <p>
+                    Explora las cinco estructuras de datos más destacadas del análisis de algoritmos: Heaps Binomiales, de Fibonacci, Izquierdistas, Oblicuos y de Emparejamiento. Visualiza su construcción paso a paso.
+                </p>
+                <div style="display: flex; justify-content: center; gap: 1rem;">
+                    <button class="btn-primary" id="btn-start-sim">
+                        <span>Ir al Simulador</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid-3" style="margin-top: 1rem;">
+                <div class="glass-card">
+                    <span class="badge badge-primary">Estructura</span>
+                    <h3 style="margin-top: 0.75rem;">¿Por qué Heaps Avanzados?</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                        Las colas de prioridad tradicionales (Heaps Binarios) tardan <code>O(n)</code> en fusionarse. Las estructuras avanzadas reducen la complejidad de la unión a <code>O(log n)</code> o incluso a <code>O(1)</code>.
+                    </p>
+                </div>
+                <div class="glass-card">
+                    <span class="badge badge-secondary">Estructuras Auxiliares</span>
+                    <h3 style="margin-top: 0.75rem;">Heaps Izquierdistas y Oblicuos</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                        Heaps binarios diseñados específicamente para acelerar la fusión a <code>O(log n)</code>. El Leftist Heap mantiene un sesgo geométrico controlado por el NPL, y el Skew Heap autocalibra su forma mediante intercambios.
+                    </p>
+                </div>
+                <div class="glass-card">
+                    <span class="badge badge-primary" style="background: rgba(16, 185, 129, 0.15); color: var(--color-success);">Heaps de Emparejamiento</span>
+                    <h3 style="margin-top: 0.75rem;">Pairing Heaps</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                        Estructuras multicamino autoajustables extremadamente rápidas y sencillas de implementar en la práctica. Superan a los Heaps de Fibonacci debido a su baja sobrecarga en memoria y excelentes factores constantes.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PANEL: CONCEPTOS -->
+        <section id="panel-theory" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-theory">
+            <div class="sub-tabs" style="overflow-x: auto; white-space: nowrap;">
+                <button class="sub-tab-btn active" id="subtab-binomial" data-subtab="binomial-theory">Heap Binomial</button>
+                <button class="sub-tab-btn" id="subtab-fibonacci" data-subtab="fibonacci-theory">Heap de Fibonacci</button>
+                <button class="sub-tab-btn" id="subtab-leftist" data-subtab="leftist-theory">Leftist Heap</button>
+                <button class="sub-tab-btn" id="subtab-skew" data-subtab="skew-theory">Skew Heap</button>
+                <button class="sub-tab-btn" id="subtab-pairing" data-subtab="pairing-theory">Pairing Heap</button>
+            </div>
+
+            <!-- Teoría del Heap Binomial -->
+            <div id="binomial-theory" class="subtab-panel">
+                <div class="grid-2">
+                    <div class="glass-card">
+                        <h2>Heap Binomial</h2>
+                        <p>
+                            Es una colección de **árboles binomiales** ordenados bajo la propiedad de Min-Heap. El árbol binomial $B_k$ se define inductivamente como dos árboles $B_{k-1}$ conectados por sus raíces.
+                        </p>
+                        <div class="info-box">
+                            <p><strong>Propiedades Clave:</strong></p>
+                            <ul class="concept-list">
+                                <li>$B_k$ tiene exactamente $2^k$ nodos.</li>
+                                <li>La altura de $B_k$ es $k$.</li>
+                                <li>El grado de la raíz de $B_k$ es $k$.</li>
+                                <li>Un heap binomial con $n$ nodos contiene a lo más $\lfloor\log_2 n\rfloor + 1$ árboles binomiales.</li>
+                            </ul>
+                        </div>
+                        <p>
+                            La operación fundamental es la **Unión**, que combina árboles del mismo orden similar al algoritmo de suma binaria, tomando un total de <code>O(log n)</code>.
+                        </p>
+                    </div>
+
+                    <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <h2>Árboles Binomiales</h2>
+                            <p style="font-size: 0.95rem; color: var(--text-secondary);">
+                                Abajo se muestran los árboles binomiales $B_0, B_1, B_2$ y $B_3$ alineados para ilustrar su estructura jerárquica y grados crecientes:
+                            </p>
+                        </div>
+                        <div class="binomial-tree-demo">
+                            <span style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Construcción de Árboles Binomiales ($B_0 \dots B_3$)</span>
+                            <svg id="binomial-construct-svg" width="100%" height="110" style="background: rgba(0,0,0,0.15); border-radius: var(--radius-sm);"></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teoría del Heap de Fibonacci -->
+            <div id="fibonacci-theory" class="subtab-panel" style="display: none;">
+                <div class="grid-2">
+                    <div class="glass-card">
+                        <h2>Heap de Fibonacci</h2>
+                        <p>
+                            Es una colección de árboles ordenados por prioridad de Min-Heap que destaca por realizar operaciones **perezosas (lazy)** en tiempo constante amortizado.
+                        </p>
+                        <div class="info-box">
+                            <p><strong>Operaciones Perezosas:</strong></p>
+                            <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">
+                                Al insertar o unir Heaps, simplemente enlazamos los nodos en una lista circular doblemente enlazada sin validar colisiones de grados. La reorganización y consolidación de la estructura se pospone hasta llamar a <strong>Extraer Mínimo</strong>.
+                            </p>
+                        </div>
+                        <p>
+                            Esto reduce la inserción, búsqueda y fusión a tiempo constante <code>O(1)</code>, resultando ideal para optimizar la complejidad del algoritmo de Dijkstra.
+                        </p>
+                    </div>
+
+                    <div class="glass-card">
+                        <h2>Decremento de Clave y Corte Cascada</h2>
+                        <p>
+                            Si al disminuir una clave se viola la propiedad de Min-Heap, cortamos el subárbol y lo movemos a las raíces. Para mantener los árboles balanceados (con grados proporcionales al número de Fibonacci):
+                        </p>
+                        <ul class="concept-list">
+                            <li>Si un nodo padre ya había perdido un hijo y pierde otro, se le corta de su padre y se sube como raíz (<strong>Corte Cascada</strong>).</li>
+                            <li>Este proceso recursivo garantiza un grado máximo de <code>O(log n)</code>.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teoría del Leftist Heap -->
+            <div id="leftist-theory" class="subtab-panel" style="display: none;">
+                <div class="grid-2">
+                    <div class="glass-card">
+                        <h2>Leftist Heap (Heap Izquierdista)</h2>
+                        <p>
+                            Es un heap con estructura de **árbol binario** que satisface la propiedad del Min-Heap. Se diseña específicamente para optimizar la operación de mezcla (Merge) a <code>O(log n)</code>.
+                        </p>
+                        <div class="info-box">
+                            <p><strong>Null Path Length (NPL):</strong></p>
+                            <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">
+                                Para cualquier nodo $x$, el $NPL(x)$ (o distancia nula) es la distancia al descendiente más cercano que tiene menos de dos hijos. Por definición:
+                                <code style="display:block; margin-top: 0.5rem; color: var(--color-secondary);">NPL(null) = -1</code>
+                                <code style="display:block; color: var(--color-secondary);">NPL(nodo) = 1 + min(NPL(izq), NPL(der))</code>
+                            </p>
+                        </div>
+                        <p>
+                            <strong>Propiedad Izquierdista:</strong> Para todo nodo $x$, se debe cumplir que $NPL(izq(x)) \ge NPL(der(x))$. Esto sesga el árbol a la izquierda, forzando a que la rama derecha del árbol sea de longitud a lo más $\lfloor\log_2(n+1)\rfloor$.
+                        </p>
+                    </div>
+
+                    <div class="glass-card">
+                        <h2>Fusión (Merge) en Leftist Heap</h2>
+                        <p>
+                            La mezcla se realiza combinando recursivamente la **rama derecha** del primer heap con el segundo heap:
+                        </p>
+                        <ul class="concept-list">
+                            <li>Comparamos las raíces; la menor permanece arriba.</li>
+                            <li>Mezclamos recursivamente su hijo derecho con el otro heap.</li>
+                            <li>Al retornar, recalculamos el $NPL$ del nodo. Si $NPL(izq) < NPL(der)$, intercambiamos el hijo izquierdo y el derecho para restaurar la propiedad izquierdista.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teoría del Skew Heap -->
+            <div id="skew-theory" class="subtab-panel" style="display: none;">
+                <div class="grid-2">
+                    <div class="glass-card">
+                        <h2>Skew Heap (Heap Oblicuo)</h2>
+                        <p>
+                            El **Skew Heap** es la versión auto-ajustable del Leftist Heap. Es un árbol binario ordenado por prioridad que no almacena información de distancia ($NPL$) en los nodos, logrando un menor consumo de memoria.
+                        </p>
+                        <div class="info-box">
+                            <p><strong>Auto-ajuste Amortizado:</strong></p>
+                            <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">
+                                En lugar de comprobar si el NPL derecho es mayor que el izquierdo, el Skew Heap **intercambia incondicionalmente** el hijo izquierdo y el hijo derecho de todos los nodos visitados en el camino de fusión (excepto el nodo inferior).
+                            </p>
+                        </div>
+                        <p>
+                            A pesar de que operaciones individuales en el peor caso pueden tomar <code>O(n)</code>, el costo amortizado por operación está garantizado en <code>O(log n)</code>.
+                        </p>
+                    </div>
+
+                    <div class="glass-card">
+                        <h2>Algoritmo de Fusión (Merge)</h2>
+                        <p>
+                            Para fusionar dos Skew Heaps $H_1$ y $H_2$:
+                        </p>
+                        <ul class="concept-list">
+                            <li>Si uno es vacío, retornamos el otro.</li>
+                            <li>Sea la raíz de $H_1$ la menor (si no, intercambiamos los nombres).</li>
+                            <li>Mezclamos de forma recursiva el hijo derecho de $H_1$ con $H_2$ y colocamos el resultado como el **hijo izquierdo** de $H_1$.</li>
+                            <li>El antiguo hijo izquierdo de $H_1$ pasa a ser su hijo derecho (es decir, intercambiamos los hijos).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teoría del Pairing Heap -->
+            <div id="pairing-theory" class="subtab-panel" style="display: none;">
+                <div class="grid-2">
+                    <div class="glass-card">
+                        <h2>Pairing Heap (Heap de Emparejamiento)</h2>
+                        <p>
+                            Es un heap basado en **árboles multicamino** auto-ajustables. Destaca por su sencillez de implementación y su alto rendimiento empírico que usualmente supera a otras estructuras complejas.
+                        </p>
+                        <div class="info-box">
+                            <p><strong>Operaciones Simples:</strong></p>
+                            <ul class="concept-list">
+                                <li><strong>Inserción / Unión:</strong> Simplemente enlazamos la raíz del heap mayor como el primer hijo de la raíz del heap menor en <code>O(1)</code>.</li>
+                                <li>La magia ocurre en la extracción del mínimo, donde se consolidan los hijos mediante un emparejamiento de dos pasadas.</li>
+                            </ul>
+                        </div>
+                        <p>
+                            No requiere almacenar marcas ni grados en los nodos, solo punteros al primer hijo y a los hermanos.
+                        </p>
+                    </div>
+
+                    <div class="glass-card">
+                        <h2>Extracción del Mínimo (Emparejamiento en 2 Pasadas)</h2>
+                        <p>
+                            Al eliminar la raíz mínima, sus hijos forman un bosque de subárboles. Para unirlos eficientemente en <code>O(log n)</code>:
+                        </p>
+                        <ul class="concept-list">
+                            <li><strong>Pasada 1 (Izquierda a Derecha):</strong> Se fusionan los subárboles por parejas contiguas (1º con 2º, 3º con 4º, etc.).</li>
+                            <li><strong>Pasada 2 (Derecha a Izquierda):</strong> Se toma el resultado de la última pareja y se fusiona de forma acumulativa hacia la izquierda con las parejas restantes una a una.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PANEL: SIMULADOR INTERACTIVO -->
+        <section id="panel-simulator" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-simulator">
+            <div class="simulator-layout">
+                
+                <!-- Panel de Controles -->
+                <div class="sim-controls">
+                    <div class="glass-card control-group">
+                        <h3>Estructura del Heap</h3>
+                        <div style="margin-bottom: 1rem;">
+                            <label for="heap-type-select" style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-bottom: 0.4rem;">
+                                Seleccionar Tipo de Heap
+                            </label>
+                            <select id="heap-type-select" style="width: 100%; background: var(--bg-primary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.5rem; border-radius: var(--radius-sm); font-weight: 600; font-family: var(--font-sans);">
+                                <option value="binomial">Heap Binomial</option>
+                                <option value="fibonacci">Heap de Fibonacci</option>
+                                <option value="leftist">Leftist Heap (Izquierdista)</option>
+                                <option value="skew">Skew Heap (Oblicuo)</option>
+                                <option value="pairing">Pairing Heap (Emparejamiento)</option>
+                            </select>
+                        </div>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            <button id="btn-ufps-example" class="btn btn-accent" style="width: 100%; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); border: none;">
+                                Cargar Ejemplo: [1, 3, 2, 9, 5, 7, 8, 4]
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="glass-card control-group">
+                        <h3>Operaciones Manuales</h3>
+                        <div class="input-row">
+                            <input type="number" id="insert-val" class="input-num" placeholder="Valor (0-99)" min="0" max="99">
+                            <button id="btn-insert" class="btn btn-accent">Insertar</button>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem;">
+                            <button id="btn-extract" class="btn" style="width: 100%;">Extraer Mínimo</button>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                                <button id="btn-random" class="btn" title="Generar Heap Aleatorio">Aleatorio</button>
+                                <button id="btn-clear" class="btn btn-danger-outline">Reiniciar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card control-group">
+                        <h3>Control de Simulación</h3>
+                        <div style="display: flex; justify-content: space-between; gap: 0.5rem; margin-bottom: 1rem;">
+                            <button id="btn-prev" class="btn" title="Paso Anterior" disabled>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                                Ant.
+                            </button>
+                            <button id="btn-play" class="btn btn-accent" title="Reproducir Simulación" disabled>
+                                Reproducir
+                            </button>
+                            <button id="btn-next" class="btn" title="Siguiente Paso" disabled>
+                                Sig.
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </button>
+                        </div>
+                        <div>
+                            <label for="speed-range" style="font-size: 0.8rem; color: var(--text-secondary); display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                                <span>Velocidad</span>
+                                <span id="speed-label">1.0s</span>
+                            </label>
+                            <input type="range" id="speed-range" min="200" max="3000" step="100" value="1000" style="width: 100%; accent-color: var(--color-primary);">
+                        </div>
+                    </div>
+
+                    <!-- Panel de Detalles Explicativos del Paso -->
+                    <div class="glass-card walkthrough-panel" id="walkthrough-panel">
+                        <div class="walkthrough-header">
+                            <span style="font-weight: 700; font-size: 0.9rem;">Paso Actual</span>
+                            <span class="step-indicator" id="step-indicator">Paso 0/0</span>
+                        </div>
+                        <div class="step-content" id="step-desc">
+                            El heap está vacío. Selecciona un tipo de Heap, luego inserta elementos o haz clic en "Cargar Ejemplo" para visualizar el proceso paso a paso.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Canvas de Visualización -->
+                <div class="viz-container">
+                    <div class="glass-card canvas-card">
+                        <div class="canvas-placeholder" id="canvas-placeholder">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="5" r="3"/>
+                                <circle cx="6" cy="12" r="3"/>
+                                <circle cx="18" cy="12" r="3"/>
+                                <line x1="12" y1="8" x2="6" y2="12"/>
+                                <line x1="12" y1="8" x2="18" y2="12"/>
+                            </svg>
+                            <p style="font-weight: 500;" id="canvas-status-title">Lienzo del Heap Listo</p>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">Elige una estructura a la izquierda y presiona Cargar Ejemplo para iniciar la simulación interactiva.</p>
+                        </div>
+                        <svg id="heap-svg" class="svg-canvas"></svg>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PANEL: COMPLEJIDADES -->
+        <section id="panel-compare" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-compare">
+            <div class="glass-card">
+                <h2>Tabla Comparativa de Complejidades Temporales</h2>
+                <p>
+                    Resumen de los tiempos de ejecución teóricos para colas de prioridad avanzadas. Nota que el asterisco (*) denota tiempos **amortizados**.
+                </p>
+
+                <div class="table-wrapper">
+                    <table class="complexity-table">
+                        <thead>
+                            <tr>
+                                <th>Estructura</th>
+                                <th>Insertar</th>
+                                <th>Buscar Mínimo</th>
+                                <th>Extraer Mínimo</th>
+                                <th>Unión (Merge)</th>
+                                <th>Decrementar Clave</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Heap Binario (Min-Heap)</strong></td>
+                                <td><code>O(log n)</code></td>
+                                <td><code>O(1)</code></td>
+                                <td><code>O(log n)</code></td>
+                                <td><code>O(n)</code></td>
+                                <td><code>O(log n)</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Heap Binomial</strong></td>
+                                <td><code>O(log n)</code></td>
+                                <td><code>O(log n)</code> o <code>O(1)</code></td>
+                                <td><code>O(log n)</code></td>
+                                <td class="highlight"><code>O(log n)</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Heap de Fibonacci</strong></td>
+                                <td class="highlight"><code>O(1)*</code></td>
+                                <td class="highlight"><code>O(1)</code></td>
+                                <td><code>O(log n)*</code></td>
+                                <td class="highlight"><code>O(1)*</code></td>
+                                <td class="highlight"><code>O(1)*</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Leftist Heap (Izquierdista)</strong></td>
+                                <td><code>O(log n)</code></td>
+                                <td><code>O(1)</code></td>
+                                <td><code>O(log n)</code></td>
+                                <td class="highlight"><code>O(log n)</code></td>
+                                <td><code>O(log n)</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Skew Heap (Oblicuo)</strong></td>
+                                <td><code>O(log n)*</code></td>
+                                <td><code>O(1)</code></td>
+                                <td><code>O(log n)*</code></td>
+                                <td class="highlight"><code>O(log n)*</code></td>
+                                <td><code>O(log n)*</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pairing Heap (Emparejamiento)</strong></td>
+                                <td class="highlight"><code>O(1)*</code></td>
+                                <td class="highlight"><code>O(1)</code></td>
+                                <td><code>O(log n)*</code></td>
+                                <td class="highlight"><code>O(1)*</code></td>
+                                <td class="highlight"><code>O(log n)*</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid-2" style="margin-top: 2rem;">
+                    <div class="glass-card" style="padding: 1.5rem; background: rgba(30, 41, 59, 0.2);">
+                        <h4 style="color: var(--color-secondary); margin-bottom: 0.5rem;">Costo Amortizado vs Peor Caso</h4>
+                        <p style="font-size: 0.9rem;">
+                            Estructuras como el **Skew Heap** o el **Pairing Heap** no mantienen restricciones rígidas en sus nodos en cada paso individual, sino que se auto-ajustan dinámicamente. Esto significa que una única operación puede tomar un tiempo costoso <code>O(n)</code>, pero cualquier secuencia de <code>m</code> operaciones tomará como máximo <code>O(m log n)</code>, garantizando una eficiencia promedio óptima en el tiempo.
+                        </p>
+                    </div>
+                    <div class="glass-card" style="padding: 1.5rem; background: rgba(30, 41, 59, 0.2);">
+                        <h4 style="color: var(--color-primary); margin-bottom: 0.5rem;">Memoria y Punteros</h4>
+                        <p style="font-size: 0.9rem;">
+                            El Heap Binario tradicional se almacena de forma compacta en un arreglo simple sin punteros. Por el contrario, los heaps avanzados requieren estructuras de nodos enlazados. Mientras que el Heap de Fibonacci requiere hasta 4 punteros y variables de marca y grado por nodo, el **Pairing Heap** y el **Skew Heap** son muy eficientes en memoria al requerir solo 2 o 3 punteros y ninguna marca administrativa.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Visualizador de Heaps Avanzados - Análisis de Algoritmos UFPS</p>
+    </footer>
+
+    <!-- App Logic Script -->
+    <script src="app.js"></script>
+</body>
+</html>
