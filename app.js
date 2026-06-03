@@ -330,6 +330,33 @@ function drawHeapInSvg(svg, trees, highlights = [], compareIds = [], customHeigh
 
 // --- HEAP TYPE 1: BINOMIAL HEAP ---
 
+function combineTreesForDisplay(result, A, B, carry, currentOrder) {
+    let list = [];
+    for (let t of result) {
+        if (t) list.push(t.clone());
+    }
+    if (carry) {
+        if (!list.some(t => t.id === carry.id)) {
+            list.push(carry.clone());
+        }
+    }
+    for (let t of A) {
+        if (t) {
+            if (!list.some(x => x.id === t.id) && (!carry || t.id !== carry.id)) {
+                list.push(t.clone());
+            }
+        }
+    }
+    for (let t of B) {
+        if (t) {
+            if (!list.some(x => x.id === t.id) && (!carry || t.id !== carry.id)) {
+                list.push(t.clone());
+            }
+        }
+    }
+    return list.filter(t => t !== null);
+}
+
 function binomialUnion(A, B, steps, title) {
     let maxOrder = Math.max(A.length, B.length);
     let carry = null;
@@ -429,7 +456,7 @@ function binomialUnion(A, B, steps, title) {
         }
     }
     
-    return result.filter(t => t !== null);
+    return result;
 }
 
 function generateBinomialInsertSteps(trees, val) {
@@ -446,7 +473,7 @@ function generateBinomialInsertSteps(trees, val) {
     
     let finalTrees = binomialUnion(A, B, steps, `Insertar ${val}`);
     steps.push({
-        trees: finalTrees.map(t => t.clone()),
+        trees: finalTrees.filter(t => t !== null).map(t => t.clone()),
         desc: `Inserción de <strong>${val}</strong> finalizada.`,
         highlights: []
     });
@@ -455,7 +482,7 @@ function generateBinomialInsertSteps(trees, val) {
 
 function generateBinomialExtractMinSteps(trees) {
     let steps = [];
-    if (trees.every(t => t === null)) {
+    if (trees.filter(t => t !== null && t !== undefined).length === 0) {
         return { finalTrees: [], steps: [] };
     }
     
@@ -486,7 +513,7 @@ function generateBinomialExtractMinSteps(trees) {
     
     let finalTrees = binomialUnion(remainingTrees, children, steps, "Unión tras extraer mínimo");
     steps.push({
-        trees: finalTrees.map(t => t.clone()),
+        trees: finalTrees.filter(t => t !== null).map(t => t.clone()),
         desc: `Extracción del mínimo completada. El heap queda consolidado.`,
         highlights: []
     });
@@ -1291,7 +1318,7 @@ inputInsert.addEventListener('keydown', (e) => {
 });
 
 btnExtract.addEventListener('click', () => {
-    if (currentHeapState.length === 0 || (currentHeapState.length === 1 && currentHeapState[0] === null)) {
+    if (currentHeapState.length === 0 || currentHeapState.filter(t => t !== null && t !== undefined).length === 0) {
         alert("El heap está vacío.");
         return;
     }
