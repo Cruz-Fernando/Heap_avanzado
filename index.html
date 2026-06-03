@@ -13,7 +13,7 @@
     <header>
         <div class="header-container">
             <a href="#" class="logo" id="logo-main">
-                <div class="logo-icon">H</div>
+                <img src="Media/Logo_ufps.png" alt="Logo UFPS" class="logo-img">
                 Heaps Avanzados
             </a>
             <nav class="nav-tabs" id="nav-tabs" role="tablist">
@@ -38,39 +38,82 @@
 
         <!-- PANEL: INICIO -->
         <section id="panel-home" class="tab-panel active" role="tabpanel" aria-labelledby="tab-btn-home">
-            <div class="hero">
-                <h1>Optimiza tus Colas de Prioridad con <br><span style="color: var(--color-secondary);">Heaps Avanzados</span></h1>
-                <p>
-                    Explora las cinco estructuras de datos más destacadas del análisis de algoritmos: Heaps Binomiales, de Fibonacci, Izquierdistas, Oblicuos y de Emparejamiento. Visualiza su construcción paso a paso.
-                </p>
-                <div style="display: flex; justify-content: center; gap: 1rem;">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <h1>Heaps Avanzados</h1>
+                    <p class="hero-subtitle">
+                        Simulador visual interactivo de montículos complejos. Visualiza la unión de colas de prioridad eficientes en tiempo real.
+                    </p>
                     <button class="btn-primary" id="btn-start-sim">
                         <span>Ir al Simulador</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </button>
                 </div>
+                <div class="hero-visual">
+                    <div class="interactive-tree-showcase">
+                        <svg width="100%" height="220" viewBox="0 0 400 220" class="animated-tree-svg">
+                            <!-- Connection Lines -->
+                            <line x1="200" y1="35" x2="110" y2="95" class="showcase-edge" />
+                            <line x1="200" y1="35" x2="290" y2="95" class="showcase-edge" />
+                            <line x1="110" y1="95" x2="60" y2="160" class="showcase-edge" />
+                            <line x1="110" y1="95" x2="160" y2="160" class="showcase-edge" />
+                            <line x1="290" y1="95" x2="240" y2="160" class="showcase-edge" />
+                            <line x1="290" y1="95" x2="340" y2="160" class="showcase-edge" />
+                            
+                            <!-- Nodes -->
+                            <g class="showcase-node-group node-root">
+                                <circle cx="200" cy="35" r="16" class="showcase-circle primary-node" />
+                                <text x="200" y="39" class="showcase-text">1</text>
+                            </g>
+                            <g class="showcase-node-group node-l1-left">
+                                <circle cx="110" cy="95" r="16" class="showcase-circle secondary-node" />
+                                <text x="110" y="99" class="showcase-text">3</text>
+                            </g>
+                            <g class="showcase-node-group node-l1-right">
+                                <circle cx="290" cy="95" r="16" class="showcase-circle secondary-node" />
+                                <text x="290" y="99" class="showcase-text">2</text>
+                            </g>
+                            <g class="showcase-node-group node-l2-1">
+                                <circle cx="60" cy="160" r="14" class="showcase-circle neutral-node" />
+                                <text x="60" y="164" class="showcase-text">9</text>
+                            </g>
+                            <g class="showcase-node-group node-l2-2">
+                                <circle cx="160" cy="160" r="14" class="showcase-circle neutral-node" />
+                                <text x="160" y="164" class="showcase-text">5</text>
+                            </g>
+                            <g class="showcase-node-group node-l2-3">
+                                <circle cx="240" cy="160" r="14" class="showcase-circle neutral-node" />
+                                <text x="240" y="164" class="showcase-text">7</text>
+                            </g>
+                            <g class="showcase-node-group node-l2-4">
+                                <circle cx="340" cy="160" r="14" class="showcase-circle neutral-node" />
+                                <text x="340" y="164" class="showcase-text">4</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
             </div>
 
             <div class="grid-3" style="margin-top: 1rem;">
-                <div class="glass-card">
+                <div class="glass-card text-center-sm">
                     <span class="badge badge-primary">Estructura</span>
                     <h3 style="margin-top: 0.75rem;">¿Por qué Heaps Avanzados?</h3>
                     <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                        Las colas de prioridad tradicionales (Heaps Binarios) tardan <code>O(n)</code> en fusionarse. Las estructuras avanzadas reducen la complejidad de la unión a <code>O(log n)</code> o incluso a <code>O(1)</code>.
+                        Las colas tradicionales tardan O(n) en unirse. Los heaps avanzados reducen este tiempo a O(log n) o O(1).
                     </p>
                 </div>
-                <div class="glass-card">
+                <div class="glass-card text-center-sm">
                     <span class="badge badge-secondary">Estructuras Auxiliares</span>
-                    <h3 style="margin-top: 0.75rem;">Heaps Izquierdistas y Oblicuos</h3>
+                    <h3 style="margin-top: 0.75rem;">Izquierdistas y Oblicuos</h3>
                     <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                        Heaps binarios diseñados específicamente para acelerar la fusión a <code>O(log n)</code>. El Leftist Heap mantiene un sesgo geométrico controlado por el NPL, y el Skew Heap autocalibra su forma mediante intercambios.
+                        Heaps binarios diseñados para acelerar la fusión mediante rotaciones y calibraciones basadas en el NPL.
                     </p>
                 </div>
-                <div class="glass-card">
+                <div class="glass-card text-center-sm">
                     <span class="badge badge-primary" style="background: rgba(16, 185, 129, 0.15); color: var(--color-success);">Heaps de Emparejamiento</span>
-                    <h3 style="margin-top: 0.75rem;">Pairing Heaps</h3>
+                    <h3 style="margin-top: 0.75rem;">Fibonacci y Pairing Heaps</h3>
                     <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                        Estructuras multicamino autoajustables extremadamente rápidas y sencillas de implementar en la práctica. Superan a los Heaps de Fibonacci debido a su baja sobrecarga en memoria y excelentes factores constantes.
+                        Estructuras multicamino autoajustables simples de implementar que posponen su consolidación en forma perezosa.
                     </p>
                 </div>
             </div>
@@ -92,15 +135,15 @@
                     <div class="glass-card">
                         <h2>Heap Binomial</h2>
                         <p>
-                            Es una colección de **árboles binomiales** ordenados bajo la propiedad de Min-Heap. El árbol binomial $B_k$ se define inductivamente como dos árboles $B_{k-1}$ conectados por sus raíces.
+                            Es una colección de **árboles binomiales** ordenados bajo la propiedad de Min-Heap. El árbol binomial B<sub>k</sub> se define inductivamente como dos árboles B<sub>k-1</sub> conectados por sus raíces.
                         </p>
                         <div class="info-box">
                             <p><strong>Propiedades Clave:</strong></p>
                             <ul class="concept-list">
-                                <li>$B_k$ tiene exactamente $2^k$ nodos.</li>
-                                <li>La altura de $B_k$ es $k$.</li>
-                                <li>El grado de la raíz de $B_k$ es $k$.</li>
-                                <li>Un heap binomial con $n$ nodos contiene a lo más $\lfloor\log_2 n\rfloor + 1$ árboles binomiales.</li>
+                                <li>B<sub>k</sub> tiene exactamente 2<sup>k</sup> nodos.</li>
+                                <li>La altura de B<sub>k</sub> es k.</li>
+                                <li>El grado de la raíz de B<sub>k</sub> es k.</li>
+                                <li>Un heap binomial con n nodos contiene a lo más ⌊log<sub>2</sub> n⌋ + 1 árboles binomiales.</li>
                             </ul>
                         </div>
                         <p>
@@ -112,11 +155,11 @@
                         <div>
                             <h2>Árboles Binomiales</h2>
                             <p style="font-size: 0.95rem; color: var(--text-secondary);">
-                                Abajo se muestran los árboles binomiales $B_0, B_1, B_2$ y $B_3$ alineados para ilustrar su estructura jerárquica y grados crecientes:
+                                Abajo se muestran los árboles binomiales B<sub>0</sub>, B<sub>1</sub>, B<sub>2</sub> y B<sub>3</sub> alineados para ilustrar su estructura jerárquica y grados crecientes:
                             </p>
                         </div>
                         <div class="binomial-tree-demo">
-                            <span style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Construcción de Árboles Binomiales ($B_0 \dots B_3$)</span>
+                            <span style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Construcción de Árboles Binomiales (B<sub>0</sub> ... B<sub>3</sub>)</span>
                             <svg id="binomial-construct-svg" width="100%" height="110" style="background: rgba(0,0,0,0.15); border-radius: var(--radius-sm);"></svg>
                         </div>
                     </div>
@@ -166,13 +209,13 @@
                         <div class="info-box">
                             <p><strong>Null Path Length (NPL):</strong></p>
                             <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">
-                                Para cualquier nodo $x$, el $NPL(x)$ (o distancia nula) es la distancia al descendiente más cercano que tiene menos de dos hijos. Por definición:
+                                Para cualquier nodo x, el NPL(x) (o distancia nula) es la distancia al descendiente más cercano que tiene menos de dos hijos. Por definición:
                                 <code style="display:block; margin-top: 0.5rem; color: var(--color-secondary);">NPL(null) = -1</code>
                                 <code style="display:block; color: var(--color-secondary);">NPL(nodo) = 1 + min(NPL(izq), NPL(der))</code>
                             </p>
                         </div>
                         <p>
-                            <strong>Propiedad Izquierdista:</strong> Para todo nodo $x$, se debe cumplir que $NPL(izq(x)) \ge NPL(der(x))$. Esto sesga el árbol a la izquierda, forzando a que la rama derecha del árbol sea de longitud a lo más $\lfloor\log_2(n+1)\rfloor$.
+                            <strong>Propiedad Izquierdista:</strong> Para todo nodo x, se debe cumplir que NPL(izq(x)) ≥ NPL(der(x)). Esto sesga el árbol a la izquierda, forzando a que la rama derecha del árbol sea de longitud a lo más ⌊log<sub>2</sub> (n+1)⌋.
                         </p>
                     </div>
 
@@ -184,7 +227,7 @@
                         <ul class="concept-list">
                             <li>Comparamos las raíces; la menor permanece arriba.</li>
                             <li>Mezclamos recursivamente su hijo derecho con el otro heap.</li>
-                            <li>Al retornar, recalculamos el $NPL$ del nodo. Si $NPL(izq) < NPL(der)$, intercambiamos el hijo izquierdo y el derecho para restaurar la propiedad izquierdista.</li>
+                            <li>Al retornar, recalculamos el NPL del nodo. Si NPL(izq) < NPL(der), intercambiamos el hijo izquierdo y el derecho para restaurar la propiedad izquierdista.</li>
                         </ul>
                     </div>
                 </div>
@@ -196,7 +239,7 @@
                     <div class="glass-card">
                         <h2>Skew Heap (Heap Oblicuo)</h2>
                         <p>
-                            El **Skew Heap** es la versión auto-ajustable del Leftist Heap. Es un árbol binario ordenado por prioridad que no almacena información de distancia ($NPL$) en los nodos, logrando un menor consumo de memoria.
+                            El **Skew Heap** es la versión auto-ajustable del Leftist Heap. Es un árbol binario ordenado por prioridad que no almacena información de distancia (NPL) en los nodos, logrando un menor consumo de memoria.
                         </p>
                         <div class="info-box">
                             <p><strong>Auto-ajuste Amortizado:</strong></p>
@@ -212,13 +255,13 @@
                     <div class="glass-card">
                         <h2>Algoritmo de Fusión (Merge)</h2>
                         <p>
-                            Para fusionar dos Skew Heaps $H_1$ y $H_2$:
+                            Para fusionar dos Skew Heaps H<sub>1</sub> y H<sub>2</sub>:
                         </p>
                         <ul class="concept-list">
                             <li>Si uno es vacío, retornamos el otro.</li>
-                            <li>Sea la raíz de $H_1$ la menor (si no, intercambiamos los nombres).</li>
-                            <li>Mezclamos de forma recursiva el hijo derecho de $H_1$ con $H_2$ y colocamos el resultado como el **hijo izquierdo** de $H_1$.</li>
-                            <li>El antiguo hijo izquierdo de $H_1$ pasa a ser su hijo derecho (es decir, intercambiamos los hijos).</li>
+                            <li>Sea la raíz de H<sub>1</sub> la menor (si no, intercambiamos los nombres).</li>
+                            <li>Mezclamos de forma recursiva el hijo derecho de H<sub>1</sub> con H<sub>2</sub> y colocamos el resultado como el **hijo izquierdo** de H<sub>1</sub>.</li>
+                            <li>El antiguo hijo izquierdo de H<sub>1</sub> pasa a ser su hijo derecho (es decir, intercambiamos los hijos).</li>
                         </ul>
                     </div>
                 </div>
